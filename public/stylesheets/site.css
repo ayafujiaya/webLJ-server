@@ -1,0 +1,30 @@
+body {
+   width:320px;
+   max-width:320px;
+   min-width:320px;
+   padding:0px;
+   margin:0px;
+}
+
+img {
+    width:100%;
+}
+#container {
+/*position:absolute;*/
+width:100%; 
+margin:0px; 
+min-height:600px; 
+/*background-color:#FF0000;*/
+}
+
+header {
+    width:100%;
+}
+
+#mainBox {
+    width:100%;
+/*background-color:#00FF00; */
+z-index:10;
+}
+
+
