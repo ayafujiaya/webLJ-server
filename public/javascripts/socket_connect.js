@@ -15,7 +15,58 @@ var str = "";
 // メッセージを受けたとき
 socket.on('message', function(msg) {
   // メッセージを画面に表示する
-  document.getElementById("receiveMsg").innerHTML = msg.value.uid + "さんがシェイクしています！";
+    
+    var parser = document.createElement('a');
+    parser.href = location.href;
+    //alert(parser.pathname);
+
+    switch (parser.pathname) {
+    case '/strobo':
+	if(msg.value.deviceID == 'strobo_1') {
+  document.getElementById("receiveMsg").innerHTML = "NOW ON STAGE  <a class='who_shake' target='_blank' href='https://twitter.com/" + msg.value.twitterID + "'>@" + msg.value.twitterID + "</a> ";
+    var url_back = "url(" + msg.value.user_image + ")";
+    $('#container').css('background-image', url_back);
+	    $('#container').animate({left:"5px"},10).animate({left:"-5px"},10).animate({left:"0px"},10);
+  $('#container').css('position', 'absolute');
+	}
+	break;
+    case '/quadphase':
+	if(msg.value.deviceID == 'quadphase_1') {
+  document.getElementById("receiveMsg").innerHTML = "NOW ON STAGE <a class='who_shake' target='_blank' href='https://twitter.com/" + msg.value.twitterID + "'>@" + msg.value.twitterID + "</a>";
+    var url_back = "url(" + msg.value.user_image + ")";
+	    $('#container').css('background-image', url_back);
+	    $('#container').animate({left:"5px"},10).animate({left:"-5px"},10).animate({left:"0px"},10);
+	    $('#container').css('position', 'absolute');
+	
+	} 
+	break;
+
+    case '/green':
+	if(msg.value.deviceID == 'green') {
+  document.getElementById("receiveMsg").innerHTML = "NOW ON STAGE <a class='who_shake' target='_blank' href='https://twitter.com/" + msg.value.twitterID + "'>@" + msg.value.twitterID + "</a>";
+    var url_back = "url(" + msg.value.user_image + ")";
+	    $('#container').css('background-image', url_back);
+	    $('#container').animate({left:"5px"},10).animate({left:"-5px"},10).animate({left:"0px"},10);
+	    $('#container').css('position', 'absolute');
+	
+	} 
+	break;
+
+    case '/led':
+	if(msg.value.deviceID == 'led') {
+  document.getElementById("receiveMsg").innerHTML = "NOW ON STAGE <a class='who_shake' target='_blank' href='https://twitter.com/" + msg.value.twitterID + "'>@" + msg.value.twitterID + "</a>";
+    var url_back = "url(" + msg.value.user_image + ")";
+	    $('#container').css('background-image', url_back);
+	    $('#container').animate({left:"5px"},10).animate({left:"-5px"},10).animate({left:"0px"},10);
+	    $('#container').css('position', 'absolute');
+	
+	} 
+	break;
+
+    }
+
+
+
 });
 
 // メッセージを送る

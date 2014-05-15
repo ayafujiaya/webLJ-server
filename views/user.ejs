@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+ <head>
+    <meta charset="UTF-8">
+    <title>WEB LJ ~THE ANONYMOUS INTERFACE~</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" href="/stylesheets/site.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,  user-scalable=no" >
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  </head>
+ 
+
+
+  <body style="">    
+
+    <div id="container">
+      <header>
+	<a href="/user"><p id="logo">LJ.io</p></a>
+	<div class="row">
+	  <div class="span5" style="background-color:#333333; text-align:right; min-height: 30px; padding: 20px 10px 20px 0px;" >
+
+	    <a href="/help">HELP</a> || <a href="./logout">LOGOUT</a>
+	    <!--<div id="device"></div>-->
+	  </div>
+	</div>
+      </header>
+
+      <div id="nav">
+	<div class="devices">
+	  <a href="/quadphase"><img src="/images/guruguru.gif"></a>
+	  
+	</div>
+	<div class="devices">
+	  <a href="/strobo"><img src="/images/strobo.gif"></a>
+	</div>
+	<div class="devices">
+	  <a href="/green"><img src="/images/green.gif"></a>
+	</div>
+<!--
+	<div class="devices">
+	  <a href="/led">LEDテープ(イベント時までお楽しみ)</a></br>
+	</div>
+-->
+
+	<div class="devices">
+	  <img src="<%= user_img %>" />
+	</div>
+	<div class="devices userinfo" >
+	  <p id="userName">
+	    <%= user_name %>
+	  </p>
+	</div>
+      </div>
+      
+
+      </div>
+    </div>
+  </body>
+    <script>
+(function(){
+    var _UA = navigator.userAgent;
+    if (_UA.indexOf('iPhone') > -1 || _UA.indexOf('iPod') > -1) {
+  //document.getElementById("device").innerHTML = "iPhone";
+
+    }else if(_UA.indexOf('Android') > -1){
+  //document.getElementById("device").innerHTML = "android";
+
+    }else{
+  document.getElementById("device").innerHTML = "これはスマートフォン専用ウェブサービスです。iPhoneやAndroidからログインしてね";
+
+    }
+
+})();
+    </script>
+</html>

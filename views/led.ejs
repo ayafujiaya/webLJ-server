@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>WEB LJ ~THE ANONYMOUS INTERFACE~</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" href="/stylesheets/site.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,  user-scalable=no" >
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.min.css" />
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.ui.touch-punch.js"></script>
+<script type="text/javascript">
+var color = 126;
+var place = 0;
+
+$(function() {
+  // 2スライダーを適用
+  $('#slider').slider({
+    min: 0,
+    max: 127,
+    step: 2,
+    value: 126,
+    // 3スライダーの変化時にテキストボックスの値表示を更新
+    change: function(e, ui) {
+      $('#num').val(ui.value);
+color = ui.value;
+    },
+    // 4スライダーの初期化時に、その値をテキストボックスにも反映
+    create: function(e, ui) {
+      $('#num').val($(this).slider('option', 'value'));
+    }
+  });
+
+  $('#slider_2').slider({
+    min: 0,
+    max: 127,
+    step: 2,
+    value: 0,
+    // 3スライダーの変化時にテキストボックスの値表示を更新
+    change: function(e, ui) {
+      $('#num_2').val(ui.value);
+place = ui.value;
+    },
+    // 4スライダーの初期化時に、その値をテキストボックスにも反映
+    create: function(e, ui) {
+      $('#num_2').val($(this).slider('option', 'value'));
+    }
+  });
+
+});
+</script>
+<script>
+var shakeData = '{ "uid" : "_uid","twitterID":"_twitterID","user_image":"image", "deviceID":"_deviceID", "color": "0", "place":"0"}';
+var limitShakeX = 10;
+var limitShakeY = 10;
+var limitShakeZ = 10;
+
+var preX = 0;
+var preY = 0;
+var preZ = 0;
+
+window.addEventListener("devicemotion", function(evt){
+var x = evt.acceleration.x;	// X方向の加速度
+var y = evt.acceleration.y;	// Y方向の加速度 
+var z = evt.acceleration.z;	// Z方向の加速度
+var shakeDataJson = JSON.parse(shakeData);
+
+  shakeDataJson.color = color;
+  shakeDataJson.place = place;
+  shakeDataJson.uid = "SESSIONID";
+  shakeDataJson.deviceID = "led";
+  shakeDataJson.twitterID = "<%= user_name %>";
+  shakeDataJson.user_image = "<%= user_img %>"
+  
+
+  limitShakeX = Math.abs(x) - Math.abs(preX);
+  limitShakeY = Math.abs(y) - Math.abs(preY);
+  limitShakeZ = Math.abs(z) - Math.abs(preZ);
+
+  if (limitShakeX > 7 | limitShakeY > 7 | limitShakeZ > 7) {
+       socket.emit('message', { value: shakeDataJson });
+$('body').css({ backgroundColor:"red"});
+$('#inner_header').css({ backgroundColor:"red"});
+document.getElementById("logo").innerHTML = "SHAKE!!"
+  } else {
+$('body').css({ backgroundColor:"black"});
+       $('#inner_header').css({ backgroundColor:"black"});
+document.getElementById("logo").innerHTML = "SHAKE ME";
+  } 
+
+
+
+preX = x;
+preY = y;
+preZ = z;
+
+var txt = "x:"+x+"<br>y:"+y+"<br>z:"+z+"<br>";
+document.getElementById("sensor").innerHTML = txt;
+}, true);
+</script>
+  <link rel="stylesheet" href="/stylesheets/site.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,  user-scalable=no" >
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/javascripts/socket_connect.js"></script>
+  </head>
+
+  <body>
+  <header>
+    <a href="/user"><p id="logo">LJ.io</p></a>
+    <div class="row">
+      <div class="span5" id="inner_header" style="text-align:right; min-height: 30px; padding: 20px 10px 20px 0px;" >
+	<a href="./logout">LOGOUT</a>
+	<!--<div id="device"></div>-->
+      </div>
+    </div>
+  </header>
+
+  <div id="container" style="padding-top: 20px;">
+  <div id="connectId" style="display:none;"></div>
+  <div id="type" style="display:none;"></div>
+  <div id="receiveMsg" style=""></div>
+
+  <div id="mainBox" style="">
+
+
+<hr>
+<input class="input_form"  id="num" type="text" size="3" readonly />
+LEDの色です。</br>
+<div id="slider" style="width:260px; margin:0 30px 0 30px;"></div>
+<hr>
+<input class="input_form" id="num_2" type="text" size="3" readonly />LEDのひかる場所です。</br>
+<div id="slider_2" style="width:260px; margin:0 30px 0 30px;"></div>
+<hr>
+
+  <div id="sensor" style="display:none;"></div>
+<!--  <script type="text/javascript" src="/javascripts/shake_track.js"></script>-->
+
+  </div>
+  <footer>
+  </footer>
+  </div>
+  </div> 
+
+  
+  </body>
+</html>

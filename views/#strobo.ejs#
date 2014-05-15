@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.min.css" />
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.ui.touch-punch.js"></script>
+<script type="text/javascript">
+var speed = 0;
+var power = 0;
+
+$(function() {
+  // 2スライダーを適用
+  $('#slider').slider({
+    min: 0,
+    max: 127,
+    step: 2,
+    value: 0,
+    // 3スライダーの変化時にテキストボックスの値表示を更新
+    change: function(e, ui) {
+      $('#num').val(ui.value);
+speed = ui.value;
+    },
+    // 4スライダーの初期化時に、その値をテキストボックスにも反映
+    create: function(e, ui) {
+      $('#num').val($(this).slider('option', 'value'));
+    }
+  });
+
+  $('#slider_2').slider({
+    min: 0,
+    max: 127,
+    step: 2,
+    value: 0,
+    // 3スライダーの変化時にテキストボックスの値表示を更新
+    change: function(e, ui) {
+      $('#num_2').val(ui.value);
+power = ui.value;
+n    },
+    // 4スライダーの初期化時に、その値をテキストボックスにも反映
+    create: function(e, ui) {
+      $('#num_2').val($(this).slider('option', 'value'));
+    }
+  });
+});
+</script>
+
+<script>
+var shakeData = '{ "uid" : "_uid","twitterID":"_twitterID", "user_image":"image", "deviceID":"_deviceID", "speed": "0", "power":"0"}';
+var limitShakeX = 10;
+var limitShakeY = 10;
+var limitShakeZ = 10;
+
+var preX = 0;
+var preY = 0;
+var preZ = 0;
+
+window.addEventListener("devicemotion", function(evt){
+var x = evt.acceleration.x;	// X方向の加速度
+var y = evt.acceleration.y;	// Y方向の加速度 
+var z = evt.acceleration.z;	// Z方向の加速度
+var shakeDataJson = JSON.parse(shakeData);
+
+  shakeDataJson.speed = speed;
+  shakeDataJson.power = power;
+  shakeDataJson.uid = sessionID;
+  shakeDataJson.deviceID = "strobo_1";
+  shakeDataJson.twitterID = "<%= user_name %>"
+  shakeDataJson.user_image = "<%= user_img %>"
+
+  limitShakeX = Math.abs(x) - Math.abs(preX);
+  limitShakeY = Math.abs(y) - Math.abs(preY);
+  limitShakeZ = Math.abs(z) - Math.abs(preZ);
+
+
+  if (limitShakeX > 7 | limitShakeY > 7 | limitShakeZ > 7) {
+       socket.emit('message', { value: shakeDataJson });
+       $('body').css({ backgroundColor:"black"});
+  } else {
+       $('body').css({ backgroundColor:"white"});
+  } 
+
+
+preX = x;
+preY = y;
+preZ = z;
+
+var txt = "x:"+x+"<br>y:"+y+"<br>z:"+z+"<br>";
+document.getElementById("sensor").innerHTML = txt;
+}, true);
+</script>
+  <link rel="stylesheet" href="/stylesheets/site.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,  user-scalable=no" >
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+</script>
+<script type="text/javascript" src="/javascripts/socket_connect.js"></script>
+  </head>
+
+  <body>
+  <div id="container" style="">
+  <header style="">
+  <div id="connectId"></div>
+  <div id="type"></div>
+  <div id="receiveMsg"></div>
+  </header>
+  <div id="mainBox" style="">
+
+<hr>
+<input style="" id="num" type="text" size="3" readonly />
+点滅スピードです。</br>
+<div id="slider" style="width:260px; margin:0 30px 0 30px;"></div>
+<hr>
+<input id="num_2" type="text" size="3" readonly />ストロボの明るさです。</br>
+<div id="slider_2" style="width:260px; margin:0 30px 0 30px;"></div>
+<hr>
+
+  <div id="sensor" style="display:none;"></div>
+
+  </div>
+  <footer>
+  </footer>
+  </div>
+  </div> 
+
+  
+  </body>
+</html>

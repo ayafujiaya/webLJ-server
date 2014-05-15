@@ -1,4 +1,4 @@
-var shakeData = '{ "uid" : "_uid","deviceID":"_deviceID", "color": "0", "strobo":"0", "rotate":"0"}';
+var shakeData = '{ "uid" : "_uid","twitterID":"_twitterID", "deviceID":"_deviceID", "color": "0", "strobo":"0", "rotate":"0"}';
 var limitShakeX = 10;
 var limitShakeY = 10;
 var limitShakeZ = 10;
@@ -18,6 +18,8 @@ var shakeDataJson = JSON.parse(shakeData);
   shakeDataJson.rotate = rotate;
   shakeDataJson.uid = sessionID;
   shakeDataJson.deviceID = "quadphase_1";
+  shakeDataJson.twitterID = "<%= user_name %>>";
+  
 
   limitShakeX = Math.abs(x) - Math.abs(preX);
   limitShakeY = Math.abs(y) - Math.abs(preY);
@@ -27,8 +29,11 @@ var shakeDataJson = JSON.parse(shakeData);
   if (limitShakeX > 7 | limitShakeY > 7 | limitShakeZ > 7) {
        socket.emit('message', { value: shakeDataJson });
        $('body').css({ backgroundColor:"black"});
+       $('#inner_header').css({ backgroundColor:"red"});
+      
   } else {
        $('body').css({ backgroundColor:"white"});
+       $('#inner_header').css({ backgroundColor:"black"});
   } 
 
 

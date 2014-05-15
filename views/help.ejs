@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+ <head>
+    <meta charset="UTF-8">
+    <title>WEB LJ ~THE ANONYMOUS INTERFACE~</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" href="/stylesheets/site.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,  user-scalable=no" >
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  </head>
+ 
+
+
+  <body style="">    
+    <div id="container">
+      <header>
+	<a href="/user"><p id="logo">LJ.io</p></a>
+	<div class="row">
+	  <div class="span5" style="background-color:#333333; text-align:right; min-height: 30px; padding: 20px 10px 20px 0px;" >
+		<a href="./logout">LOGOUT</a>
+	    <!--<div id="device"></div>-->
+	  </div>
+	</div>
+      </header>
+      <div id="help">
+	<h1>LJ.ioの説明</h1>
+	LJ.ioは５月５日に開催される「東京」というイベント向けに開発されたウェブ上で会場の照明機材を操作できるウェブサービスです。
+	
+	<h1>LJ.ioの使い方</h1>
+	1.操作したい照明をタッチする<br>
+	<img src="/images/user.jpg">
+	</br>
+		</br>
+			</br>
+	</br>
+	2.スライドバーを操作する。
+	<img src="/images/light.jpg">
+	</br>
+	</br>
+	3.端末をシェイク！！<br>
+	</br>
+	*端末がシェイクされたことが検知されると同時に設定された値がサーバーにおくられるのと同時に、画面上部の黒い部分が赤くなります。</br>
+	*端末がシェイクされるようになるまでしばらく時間がかかる場合があります。twitterのアイコンなどが表示されるのが目安です。
+	
+
+	<h3>画面の説明</h3>
+	<img src="/images/light.jpg"></br>
+</br>
+	1.背景のtwitterのアイコンは、この照明機材に最新のデータを送った人です。この画面を見ている人すべて同じtwitterアイコンが表示されています。</br>
+</br>
+	2.同じく、「NOW ON STAGE」の後に続くtwitterのアカウントはこの照明にデータを送った最新の人です。この画面を見ているすべての人に同じ画面が表示されていますので、どんどん振ってどんどん目立ちましょう！</br>
+</br>
+
+      </div>
+    </div>
+  </body>
+    <script>
+(function(){
+    var _UA = navigator.userAgent;
+    if (_UA.indexOf('iPhone') > -1 || _UA.indexOf('iPod') > -1) {
+  //document.getElementById("device").innerHTML = "iPhone";
+
+    }else if(_UA.indexOf('Android') > -1){
+  //document.getElementById("device").innerHTML = "android";
+
+    }else{
+  document.getElementById("device").innerHTML = "これはスマートフォン専用ウェブサービスです。iPhoneやAndroidからログインしてね";
+
+    }
+
+})();
+    </script>
+</html>
