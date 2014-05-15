@@ -8,8 +8,8 @@ var express = require('express')
   , TwitterStrategy = require('passport-twitter').Strategy;
 
 var RedisStore = require('connect-redis')(express);
-var TWITTER_CONSUMER_KEY = process.env.NODE_C_KEY;//"Qo6hLIag0SzsAYdAvHkPVV8Nh";
-var TWITTER_CONSUMER_SECRET = process.env.NODE_C_SECRET;//"VIHQdlf1aJQpklGJkW1xcjN1y8RTkcl6DD3esCarhUi4HniJbB";
+var TWITTER_CONSUMER_KEY = process.env.NODE_C_KEY;
+var TWITTER_CONSUMER_SECRET = process.env.NODE_C_SECRET;
 var userId = "";
 var preData = "";
 
